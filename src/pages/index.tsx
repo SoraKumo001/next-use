@@ -32,6 +32,8 @@ const Page = () => {
     const [weather, setWeather] = useState(() => fetchWeather(130000))
     return (
         <div>
+            <div><a href="https://github.com/SoraKumo001/next-use">Source Code</a></div>
+            <hr />
             <div>
                 <button onClick={() => setWeather(fetchWeather(130000))}>東京</button>
                 <button onClick={() => setWeather(fetchWeather(120000))}>千葉</button>
