@@ -27,8 +27,6 @@ const WeatherView = ({ weather: p }: { weather: Promise<Weather> }) => {
 }
 
 const Page = () => {
-    if (typeof window === "undefined")
-        return null;
     const [weather, setWeather] = useState(() => fetchWeather(130000))
     return (
         <div>
