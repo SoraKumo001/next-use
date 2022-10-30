@@ -1,6 +1,5 @@
-import { Suspense, useState } from "react";
-import dynamic from "next/dynamic";
-import { use } from "../libs/use";
+import { Suspense, use, useState } from "react";
+import { usePromiseState } from "../libs/promiseState";
 
 export interface Weather {
     publishingOffice: string;
@@ -17,7 +16,7 @@ const fetchWeather = (id: number) =>
 
 
 const WeatherView = ({ weather: p }: { weather: Promise<Weather> }) => {
-    const weather = use(p)
+    const weather = use(fetchWeather(130000))
     return <div>
         <h1>{weather.targetArea}</h1>
         <div>{new Date(weather.reportDatetime).toLocaleString()}</div>
@@ -27,7 +26,7 @@ const WeatherView = ({ weather: p }: { weather: Promise<Weather> }) => {
 }
 
 const Page = () => {
-    const [weather, setWeather] = useState(() => fetchWeather(130000))
+    const [weather, setWeather] = usePromiseState(() => fetchWeather(130000))
     return (
         <div>
             <div><a href="https://github.com/SoraKumo001/next-use">Source Code</a></div>
@@ -43,6 +42,7 @@ const Page = () => {
         </div>
     )
 }
+export default Page;
 
 //　Next.jsでSSRを切る
-export default dynamic(() => Promise.resolve(Page), { ssr: false });
+//export default dynamic(() => Promise.resolve(Page), { ssr: false });
